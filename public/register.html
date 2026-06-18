@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>STARS — Create account</title>
+  <meta name="description" content="Create your STARS account to book rooms and equipment at UTHM." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="auth-wrap">
+    <aside class="auth-brand">
+      <div class="brand-logo">
+        <div class="logo-mark"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div>STARS<div style="font-size:.7rem;font-weight:400;opacity:.85;letter-spacing:.05em">UTHM University Platform</div></div>
+      </div>
+      <div class="auth-hero">
+        <h1>Join the<br/>STARS portal.</h1>
+        <p>Register once and gain access to room bookings, equipment loans, real-time notifications and your personal activity dashboard.</p>
+        <div class="auth-stats">
+          <div class="auth-stat"><div class="n">⚡</div><div class="l">Fast booking</div></div>
+          <div class="auth-stat"><div class="n">🔒</div><div class="l">Secure access</div></div>
+          <div class="auth-stat"><div class="n">📊</div><div class="l">Insights</div></div>
+        </div>
+      </div>
+      <div class="auth-foot">© <span id="yr"></span> UTHM · STARS v1.0</div>
+    </aside>
+    <section class="auth-form-wrap">
+      <div class="auth-card">
+        <h2>Create your account</h2>
+        <p class="sub">Sign up as a student or staff member.</p>
+        <form id="regForm" autocomplete="on">
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Full Name *</label><input class="form-control" name="fullName" required></div>
+            <div class="form-group"><label class="form-label">Student / Staff ID *</label><input class="form-control" name="studentStaffID" required></div>
+          </div>
+          <div class="form-group"><label class="form-label">Email *</label><input class="form-control" type="email" name="email" required></div>
+          <div class="form-group"><label class="form-label">Phone Number</label><input class="form-control" name="phone" placeholder="+60 12 345 6789"></div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Password *</label><input class="form-control" type="password" name="password" minlength="6" required></div>
+            <div class="form-group"><label class="form-label">Confirm *</label><input class="form-control" type="password" name="confirm" minlength="6" required></div>
+          </div>
+          <div class="text-muted text-sm mb-2"><i class="fa-solid fa-shield-halved"></i> Use at least 6 characters with a mix of letters & numbers.</div>
+          <button class="btn btn-primary btn-block" type="submit"><i class="fa-solid fa-user-plus"></i> Create account</button>
+          <div class="divider">or</div>
+          <a href="login.html" class="btn btn-outline btn-block"><i class="fa-solid fa-arrow-left"></i> Back to sign in</a>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    document.getElementById('regForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const f = Object.fromEntries(new FormData(e.target));
+      if (!/^[^@]+@[^@]+\.[^@]+$/.test(f.email)) return Swal.fire({icon:'error',title:'Invalid email',confirmButtonColor:'#0F4C81'});
+      if (f.password.length < 6) return Swal.fire({icon:'error',title:'Password too short',text:'Use at least 6 characters.',confirmButtonColor:'#0F4C81'});
+      if (f.password !== f.confirm) return Swal.fire({icon:'error',title:'Passwords do not match',confirmButtonColor:'#0F4C81'});
+      delete f.confirm;
+      const r = STARS.register(f);
+      if (!r.ok) return Swal.fire({icon:'error',title:'Registration failed',text:r.error,confirmButtonColor:'#0F4C81'});
+      Swal.fire({icon:'success',title:'Account created!',text:'You can now sign in to STARS.',confirmButtonColor:'#0F4C81'}).then(()=>location.href='login.html');
+    });
+  </script>
+</body>
+</html>

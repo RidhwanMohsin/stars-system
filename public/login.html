@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>STARS — Sign in</title>
+  <meta name="description" content="STARS — Student Attendance & Room Scheduling System. Sign in to your university portal." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="auth-wrap">
+    <aside class="auth-brand">
+      <div class="brand-logo">
+        <div class="logo-mark"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div>STARS<div style="font-size:.7rem;font-weight:400;opacity:.85;letter-spacing:.05em">UTHM University Platform</div></div>
+      </div>
+      <div class="auth-hero">
+        <h1>Smarter room<br/>scheduling for a<br/>modern campus.</h1>
+        <p>Book meeting rooms, reserve equipment, track attendance and gain real-time insight into how every space is being used — all from one unified portal.</p>
+        <div class="auth-stats">
+          <div class="auth-stat"><div class="n">120+</div><div class="l">Rooms</div></div>
+          <div class="auth-stat"><div class="n">15k</div><div class="l">Bookings / yr</div></div>
+          <div class="auth-stat"><div class="n">98%</div><div class="l">Uptime</div></div>
+        </div>
+      </div>
+      <div class="auth-foot">© <span id="yr"></span> Universiti Tun Hussein Onn Malaysia · STARS v1.0</div>
+    </aside>
+    <section class="auth-form-wrap">
+      <div class="auth-card">
+        <h2>Welcome back</h2>
+        <p class="sub">Sign in to access the STARS portal.</p>
+        <form id="loginForm" autocomplete="on">
+          <div class="form-group">
+            <label class="form-label">Sign in as</label>
+            <select class="form-control" name="role" required>
+              <option value="user">User (Student / Staff)</option>
+              <option value="admin">Administrator</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email address</label>
+            <div class="input-wrap">
+              <i class="input-icon fa-solid fa-envelope"></i>
+              <input class="form-control" type="email" name="email" required placeholder="you@uthm.edu.my" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="input-wrap">
+              <i class="input-icon fa-solid fa-lock"></i>
+              <input class="form-control" type="password" name="password" required placeholder="••••••••" id="pw" />
+              <button type="button" class="toggle-pw" id="togglePw"><i class="fa-solid fa-eye"></i></button>
+            </div>
+          </div>
+          <div class="auth-row">
+            <label class="checkbox"><input type="checkbox" name="remember"> Remember me</label>
+            <a href="#" id="forgot">Forgot password?</a>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit"><i class="fa-solid fa-arrow-right-to-bracket"></i> Sign in</button>
+          <div class="divider">or</div>
+          <a href="register.html" class="btn btn-outline btn-block"><i class="fa-solid fa-user-plus"></i> Create a new account</a>
+          <div class="text-muted text-sm mt-2" style="text-align:center">
+            Demo admin · <b>admin@stars.com</b> / <b>admin123</b>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    if (STARS.currentUser()) location.replace(STARS.currentUser().role === 'admin' ? 'admin-dashboard.html' : 'user-dashboard.html');
+    const pw = document.getElementById('pw');
+    document.getElementById('togglePw').addEventListener('click', () => {
+      pw.type = pw.type === 'password' ? 'text' : 'password';
+    });
+    document.getElementById('forgot').addEventListener('click', e => {
+      e.preventDefault();
+      Swal.fire({ icon:'info', title:'Forgot password?', text:'Please contact your system administrator to reset your password.', confirmButtonColor:'#0F4C81' });
+    });
+    document.getElementById('loginForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const f = Object.fromEntries(new FormData(e.target));
+      const r = STARS.login(f.email.trim(), f.password, f.role);
+      if (!r.ok) return Swal.fire({ icon:'error', title:'Sign in failed', text:r.error, confirmButtonColor:'#0F4C81' });
+      STARS.toast('success', 'Welcome back, ' + r.user.fullName.split(' ')[0] + '!');
+      setTimeout(() => location.href = r.user.role === 'admin' ? 'admin-dashboard.html' : 'user-dashboard.html', 400);
+    });
+  </script>
+</body>
+</html>

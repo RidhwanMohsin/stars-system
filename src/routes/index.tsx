@@ -3,27 +3,22 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "STARS — Student Attendance & Room Scheduling System" },
+      { name: "description", content: "STARS: a professional university room booking, equipment loan and analytics platform." },
+      { property: "og:title", content: "STARS — Student Attendance & Room Scheduling System" },
+      { property: "og:description", content: "STARS: a professional university room booking, equipment loan and analytics platform." },
     ],
   }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
+  if (typeof window !== "undefined") {
+    window.location.replace("/login.html");
+  }
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#F5F7FA", fontFamily: "Inter, system-ui, sans-serif", color: "#0F4C81" }}>
+      Loading STARS…
     </div>
   );
 }
