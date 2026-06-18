@@ -77,14 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Stars-System" },
+      { name: "description", content: "STARS is a web-based system for managing student attendance and room scheduling." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Stars-System" },
+      { property: "og:description", content: "STARS is a web-based system for managing student attendance and room scheduling." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Stars-System" },
+      { name: "twitter:description", content: "STARS is a web-based system for managing student attendance and room scheduling." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2903f40d-7a75-4b56-8129-53ec9a2bbe3c/id-preview-750af543--9534dd24-cc47-494d-9d26-7cee2b6c564f.lovable.app-1781802823610.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2903f40d-7a75-4b56-8129-53ec9a2bbe3c/id-preview-750af543--9534dd24-cc47-494d-9d26-7cee2b6c564f.lovable.app-1781802823610.png" },
     ],
     links: [
       {
