@@ -12,6 +12,7 @@
     session: 'stars.session',
     settings: 'stars.settings',
     theme: 'stars.theme',
+    seedVersion: 'stars.seedVersion',
   };
   const db = {
     get(k, d = []) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
@@ -33,6 +34,14 @@
 
   // ----- Seed default data on first run -----
   function seed() {
+    const SEED_VERSION = 'sport-v1';
+    const currentSeed = localStorage.getItem(KEY.seedVersion);
+    if (currentSeed !== SEED_VERSION) {
+      // Reset domain data so new sport-themed seed takes effect
+      localStorage.removeItem(KEY.rooms);
+      localStorage.removeItem(KEY.equipment);
+      localStorage.setItem(KEY.seedVersion, SEED_VERSION);
+    }
     if (!localStorage.getItem(KEY.users)) {
       db.set(KEY.users, [{
         id: uid('u'), fullName: 'System Administrator', studentStaffID: 'ADM-001',
@@ -42,21 +51,20 @@
     }
     if (!localStorage.getItem(KEY.rooms)) {
       db.set(KEY.rooms, [
-        { roomNumber: 'BK-101', roomName: 'Senate Boardroom',     location: 'Block A — Chancellery',     capacity: 24, status: 'Available' },
-        { roomNumber: 'BK-102', roomName: 'Faculty Meeting Room', location: 'Block B — Engineering',     capacity: 16, status: 'Available' },
-        { roomNumber: 'BK-203', roomName: 'Innovation Lab',       location: 'Block C — FSKTM',           capacity: 30, status: 'Available' },
-        { roomNumber: 'BK-301', roomName: 'Discussion Room 1',    location: 'Library — Level 3',         capacity: 8,  status: 'Available' },
-        { roomNumber: 'BK-302', roomName: 'Seminar Hall A',       location: 'Block D — Auditorium',      capacity: 120, status: 'Maintenance' },
-        { roomNumber: 'BK-401', roomName: 'Postgrad Lounge',      location: 'Block E — Postgraduate',    capacity: 12, status: 'Available' },
+        { roomNumber: 'SP-101', roomName: 'Padang Bola Sintetik', location: 'Kompleks Sukan — Padang Utama',  capacity: 40, status: 'Available' },
+        { roomNumber: 'SP-102', roomName: 'Dewan Badminton',      location: 'Kompleks Sukan — Dewan A',       capacity: 32, status: 'Available' },
+        { roomNumber: 'SP-103', roomName: 'Padang Ragbi',         location: 'Kompleks Sukan — Padang Selatan',capacity: 45, status: 'Available' },
+        { roomNumber: 'SP-104', roomName: 'Padang Hoki',          location: 'Kompleks Sukan — Padang Timur',  capacity: 36, status: 'Available' },
+        { roomNumber: 'SP-105', roomName: 'Gelanggang Takraw',    location: 'Kompleks Sukan — Dewan B',       capacity: 20, status: 'Available' },
       ]);
     }
     if (!localStorage.getItem(KEY.equipment)) {
       db.set(KEY.equipment, [
-        { equipmentID: 'EQ-001', equipmentName: 'Projector (Epson EB-X51)', quantity: 8,  availabilityStatus: 'Available' },
-        { equipmentID: 'EQ-002', equipmentName: 'Wireless Microphone',       quantity: 12, availabilityStatus: 'Available' },
-        { equipmentID: 'EQ-003', equipmentName: 'Whiteboard (Portable)',     quantity: 5,  availabilityStatus: 'Available' },
-        { equipmentID: 'EQ-004', equipmentName: 'Laptop (HP EliteBook)',     quantity: 10, availabilityStatus: 'Available' },
-        { equipmentID: 'EQ-005', equipmentName: 'HDMI / VGA Adapter Kit',    quantity: 15, availabilityStatus: 'Available' },
+        { equipmentID: 'EQ-001', equipmentName: 'Bola Padang', quantity: 20, availabilityStatus: 'Available' },
+        { equipmentID: 'EQ-002', equipmentName: 'Bola Takraw', quantity: 15, availabilityStatus: 'Available' },
+        { equipmentID: 'EQ-003', equipmentName: 'Bola Ragbi',  quantity: 12, availabilityStatus: 'Available' },
+        { equipmentID: 'EQ-004', equipmentName: 'Kon',         quantity: 40, availabilityStatus: 'Available' },
+        { equipmentID: 'EQ-005', equipmentName: 'Bola Hoki',   quantity: 18, availabilityStatus: 'Available' },
       ]);
     }
     if (!localStorage.getItem(KEY.bookings)) db.set(KEY.bookings, []);
