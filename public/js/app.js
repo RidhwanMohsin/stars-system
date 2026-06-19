@@ -126,7 +126,7 @@
   const NAV = {
     user: [
       { id: 'dashboard',  label: 'Dashboard',      icon: 'fa-gauge-high' },
-      { id: 'rooms',      label: 'Rooms',          icon: 'fa-door-open' },
+      { id: 'rooms',      label: 'Sport Halls',    icon: 'fa-futbol' },
       { id: 'bookings',   label: 'My Bookings',    icon: 'fa-calendar-check' },
       { id: 'newbooking', label: 'New Booking',    icon: 'fa-square-plus' },
       { id: 'equipment',  label: 'Equipment',      icon: 'fa-toolbox' },
@@ -138,7 +138,7 @@
       { id: 'dashboard',  label: 'Dashboard',      icon: 'fa-gauge-high' },
       { id: 'analytics',  label: 'Analytics',      icon: 'fa-chart-line' },
       { id: 'bookings',   label: 'All Bookings',   icon: 'fa-calendar-days' },
-      { id: 'rooms',      label: 'Rooms',          icon: 'fa-door-open' },
+      { id: 'rooms',      label: 'Sport Halls',    icon: 'fa-futbol' },
       { id: 'equipment',  label: 'Equipment',      icon: 'fa-toolbox' },
       { id: 'users',      label: 'Users',          icon: 'fa-users' },
       { id: 'reports',    label: 'Reports',        icon: 'fa-file-export' },
@@ -177,7 +177,7 @@
             <div class="spacer"></div>
             <div class="search">
               <i class="fa-solid fa-magnifying-glass text-muted"></i>
-              <input id="globalSearch" placeholder="Search rooms, bookings…" />
+              <input id="globalSearch" placeholder="Search sport halls, bookings…" />
             </div>
             <button class="icon-btn" id="btnTheme" title="Toggle theme"><i class="theme-ic fa-solid fa-moon"></i></button>
             <div class="dropdown" id="ddNotif">
@@ -298,10 +298,10 @@
       <div class="page-head">
         <div>
           <h1>Welcome back, ${escapeHTML(user.fullName.split(' ')[0])} 👋</h1>
-          <div class="sub">Here's what's happening with your room bookings today.</div>
+          <div class="sub">Here's what's happening with your sport hall bookings today.</div>
         </div>
         <div class="flex gap-1">
-          <button class="btn btn-outline" onclick="go('rooms')"><i class="fa-solid fa-magnifying-glass"></i> View Rooms</button>
+          <button class="btn btn-outline" onclick="go('rooms')"><i class="fa-solid fa-magnifying-glass"></i> View Sport Halls</button>
           <button class="btn btn-primary" onclick="go('newbooking')"><i class="fa-solid fa-plus"></i> New Booking</button>
         </div>
       </div>
@@ -310,7 +310,7 @@
         ${statCard('b2','fa-hourglass-half','Pending', stats.pending)}
         ${statCard('b3','fa-circle-check','Approved', stats.approved)}
         ${statCard('b4','fa-circle-xmark','Rejected', stats.rejected)}
-        ${statCard('b5','fa-door-open','Available Rooms', stats.available)}
+        ${statCard('b5','fa-futbol','Available Sport Halls', stats.available)}
       </div>
       <div class="grid-2">
         <div class="card">
@@ -330,7 +330,7 @@
         <div class="card">
           <div class="card-h"><h3>Quick Actions</h3></div>
           <div class="flex gap-1" style="flex-wrap:wrap">
-            <button class="btn btn-outline" onclick="go('newbooking')"><i class="fa-solid fa-square-plus"></i> Book a Room</button>
+            <button class="btn btn-outline" onclick="go('newbooking')"><i class="fa-solid fa-square-plus"></i> Book a Sport Hall</button>
             <button class="btn btn-outline" onclick="go('equipment')"><i class="fa-solid fa-toolbox"></i> Borrow Equipment</button>
             <button class="btn btn-outline" onclick="go('bookings')"><i class="fa-solid fa-clock-rotate-left"></i> History</button>
             <button class="btn btn-outline" onclick="go('profile')"><i class="fa-solid fa-user-pen"></i> Edit Profile</button>
@@ -354,7 +354,7 @@
       && (!fCap || r.capacity >= +fCap)
     );
     c.innerHTML = `
-      <div class="page-head"><div><h1>Meeting Rooms</h1><div class="sub">Browse available rooms across the campus.</div></div></div>
+      <div class="page-head"><div><h1>Sport Halls</h1><div class="sub">Browse available sport halls across the campus.</div></div></div>
       <div class="toolbar">
         <select class="form-control" id="fLoc" style="max-width:220px"><option value="">All locations</option>${locs.map(l => `<option ${fLoc===l?'selected':''}>${escapeHTML(l)}</option>`).join('')}</select>
         <select class="form-control" id="fCap" style="max-width:200px">
@@ -366,7 +366,7 @@
         </select>
       </div>
       <div class="grid-3">
-        ${list.length ? list.map(r => roomCard(r, user.role === 'user')).join('') : `<div class="empty" style="grid-column:1/-1"><i class="fa-solid fa-door-closed"></i><div>No rooms match your filters.</div></div>`}
+        ${list.length ? list.map(r => roomCard(r, user.role === 'user')).join('') : `<div class="empty" style="grid-column:1/-1"><i class="fa-solid fa-futbol"></i><div>No sport halls match your filters.</div></div>`}
       </div>`;
     document.getElementById('fLoc').addEventListener('change', e => { window.__fLoc = e.target.value; PAGES.user.rooms(user,c); });
     document.getElementById('fCap').addEventListener('change', e => { window.__fCap = e.target.value; PAGES.user.rooms(user,c); });
@@ -380,17 +380,17 @@
     const pre = window.__preselectRoom || '';
     window.__preselectRoom = '';
     c.innerHTML = `
-      <div class="page-head"><div><h1>Submit Booking Request</h1><div class="sub">Reserve a meeting room and optionally borrow equipment.</div></div></div>
+      <div class="page-head"><div><h1>Submit Booking Request</h1><div class="sub">Reserve a sport hall and optionally borrow equipment.</div></div></div>
       <div class="card" style="max-width:840px">
         <form id="bookForm">
           <div class="form-row">
-            <div class="form-group"><label class="form-label">Meeting / Event Name *</label><input class="form-control" name="meetingName" required maxlength="120" /></div>
+            <div class="form-group"><label class="form-label">Event / Activity Name *</label><input class="form-control" name="meetingName" required maxlength="120" /></div>
             <div class="form-group"><label class="form-label">Chairman / Person In Charge *</label><input class="form-control" name="chairmanName" value="${escapeHTML(user.fullName)}" required /></div>
           </div>
           <div class="form-row">
-            <div class="form-group"><label class="form-label">Meeting Room *</label>
+            <div class="form-group"><label class="form-label">Sport Hall *</label>
               <select class="form-control" name="roomNumber" required>
-                <option value="">Select a room…</option>
+                <option value="">Select a sport hall…</option>
                 ${rooms.map(r => `<option value="${r.roomNumber}" ${pre===r.roomNumber?'selected':''}>${r.roomNumber} — ${escapeHTML(r.roomName)} (cap ${r.capacity})</option>`).join('')}
               </select>
             </div>
@@ -571,22 +571,22 @@
     const q = (window.__search||'').toLowerCase();
     const list = rooms.filter(r => (r.roomNumber+r.roomName+r.location).toLowerCase().includes(q));
     c.innerHTML = `
-      <div class="page-head"><div><h1>Manage Rooms</h1><div class="sub">Add, edit or remove rooms in the system.</div></div>
-        <button class="btn btn-primary" id="addRoom"><i class="fa-solid fa-plus"></i> Add Room</button></div>
+      <div class="page-head"><div><h1>Manage Sport Halls</h1><div class="sub">Add, edit or remove sport halls in the system.</div></div>
+        <button class="btn btn-primary" id="addRoom"><i class="fa-solid fa-plus"></i> Add Sport Hall</button></div>
       <div class="table-wrap"><table class="data">
-        <thead><tr><th>Room No.</th><th>Name</th><th>Location</th><th>Capacity</th><th>Status</th><th></th></tr></thead>
+        <thead><tr><th>Hall No.</th><th>Name</th><th>Location</th><th>Capacity</th><th>Status</th><th></th></tr></thead>
         <tbody>${list.map(r => `
           <tr><td><b>${r.roomNumber}</b></td><td>${escapeHTML(r.roomName)}</td><td>${escapeHTML(r.location)}</td><td>${r.capacity}</td>
           <td>${statusBadge(r.status)}</td>
           <td><div class="row-actions">
             <button class="icon-btn" data-edit-room="${r.roomNumber}" title="Edit"><i class="fa-solid fa-pen"></i></button>
             <button class="icon-btn" data-del-room="${r.roomNumber}" title="Delete"><i class="fa-solid fa-trash"></i></button>
-          </div></td></tr>`).join('') || `<tr><td colspan="6"><div class="empty"><i class="fa-solid fa-door-closed"></i><div>No rooms.</div></div></td></tr>`}
+          </div></td></tr>`).join('') || `<tr><td colspan="6"><div class="empty"><i class="fa-solid fa-futbol"></i><div>No sport halls.</div></div></td></tr>`}
         </tbody></table></div>`;
     document.getElementById('addRoom').onclick = () => roomDialog(null, () => PAGES.admin.rooms(user,c));
     document.querySelectorAll('[data-edit-room]').forEach(b => b.onclick = () => roomDialog(b.dataset.editRoom, () => PAGES.admin.rooms(user,c)));
     document.querySelectorAll('[data-del-room]').forEach(b => b.onclick = () => {
-      Swal.fire({title:'Delete room?',icon:'warning',showCancelButton:true,confirmButtonColor:'#DC3545'}).then(r => {
+      Swal.fire({title:'Delete sport hall?',icon:'warning',showCancelButton:true,confirmButtonColor:'#DC3545'}).then(r => {
         if (r.isConfirmed) { db.set(KEY.rooms, db.get(KEY.rooms).filter(x => x.roomNumber !== b.dataset.delRoom)); toast('success','Room deleted'); PAGES.admin.rooms(user,c); }
       });
     });
