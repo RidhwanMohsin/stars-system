@@ -513,7 +513,7 @@
           <canvas id="chartStatus" height="220"></canvas>
         </div>
         <div class="card">
-          <div class="card-h"><h3>Top Rooms Used</h3></div>
+          <div class="card-h"><h3>Top Sport Halls Used</h3></div>
           <canvas id="chartRooms" height="220"></canvas>
         </div>
       </div>
@@ -531,13 +531,13 @@
   PAGES.admin.analytics = (user, c) => {
     const bookings = db.get(KEY.bookings);
     c.innerHTML = `
-      <div class="page-head"><div><h1>Analytics Dashboard</h1><div class="sub">Real-time visualisation of bookings, rooms and user activity.</div></div></div>
+      <div class="page-head"><div><h1>Analytics Dashboard</h1><div class="sub">Real-time visualisation of bookings, sport halls and user activity.</div></div></div>
       <div class="grid-2">
         <div class="card"><div class="card-h"><h3>Monthly Booking Volume</h3></div><canvas id="cMonthly" height="220"></canvas></div>
         <div class="card"><div class="card-h"><h3>Status Distribution</h3></div><canvas id="cStatus" height="220"></canvas></div>
       </div>
       <div class="grid-2 mt-3">
-        <div class="card"><div class="card-h"><h3>Most Used Rooms</h3></div><canvas id="cRooms" height="220"></canvas></div>
+        <div class="card"><div class="card-h"><h3>Most Used Sport Halls</h3></div><canvas id="cRooms" height="220"></canvas></div>
         <div class="card"><div class="card-h"><h3>User Activity (last 14 days)</h3></div><canvas id="cTrend" height="220"></canvas></div>
       </div>`;
     renderMonthlyChart('cMonthly', bookings);
@@ -938,7 +938,7 @@
       </div>
       <div class="grid-2 mt-3">
         <div class="card"><div class="card-h"><h3>Status Distribution</h3></div><canvas id="rStatusChart" height="220"></canvas></div>
-        <div class="card"><div class="card-h"><h3>Room Usage</h3></div><canvas id="rRoomsChart" height="220"></canvas></div>
+        <div class="card"><div class="card-h"><h3>Sport Hall Usage</h3></div><canvas id="rRoomsChart" height="220"></canvas></div>
       </div>`;
   }
   function bindReportEvents(allBookings) {
