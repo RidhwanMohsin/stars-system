@@ -104,8 +104,8 @@ input, select, textarea, button { font-family: inherit; font-size: 0.95rem; }
 .auth-brand::before, .auth-brand::after {
   content: ''; position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.45;
 }
-.auth-brand::before { width: 380px; height: 380px; background: #FFC107; top: -100px; right: -100px; }
-.auth-brand::after { width: 320px; height: 320px; background: #4FC3F7; bottom: -120px; left: -80px; }
+.auth-brand::before { width: 380px; height: 380px; background: #FACC15; top: -100px; right: -100px; }
+.auth-brand::after { width: 320px; height: 320px; background: #F97316; bottom: -120px; left: -80px; }
 .auth-brand > * { position: relative; z-index: 1; }
 .brand-logo { display: flex; align-items: center; gap: 0.75rem; font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; }
 .brand-logo .logo-mark {
